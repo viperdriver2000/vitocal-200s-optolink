@@ -1,3 +1,5 @@
+# Vitocal 200-S, CU401B_S (WO1C), FW 0x41 - nur LESEN.
+# Adressen siehe docs/adressen-cu401b-sw41.md
 substitutions:
   name: optolink-bench
 
@@ -45,77 +47,126 @@ sensor:
     name: "Aussentemperatur"
     address: 0x0880
     length: 2
+    accuracy_decimals: 1
     unit_of_measurement: "C"
     device_class: temperature
     state_class: measurement
-    accuracy_decimals: 1
     filters:
       - lambda: return x * 0.1;
   - platform: vitoconnect
     name: "Warmwasser"
     address: 0x0882
     length: 2
+    accuracy_decimals: 1
     unit_of_measurement: "C"
     device_class: temperature
     state_class: measurement
-    accuracy_decimals: 1
-    filters:
-      - lambda: return x * 0.1;
-  - platform: vitoconnect
-    name: "Vorlauf Primaer"
-    address: 0x088F
-    length: 2
-    unit_of_measurement: "C"
-    device_class: temperature
-    state_class: measurement
-    accuracy_decimals: 1
-    filters:
-      - lambda: return x * 0.1;
-  - platform: vitoconnect
-    name: "Vorlauf Sekundaer"
-    address: 0x0890
-    length: 2
-    unit_of_measurement: "C"
-    device_class: temperature
-    state_class: measurement
-    accuracy_decimals: 1
-    filters:
-      - lambda: return x * 0.1;
-  - platform: vitoconnect
-    name: "Ruecklauf"
-    address: 0x0891
-    length: 2
-    unit_of_measurement: "C"
-    device_class: temperature
-    state_class: measurement
-    accuracy_decimals: 1
     filters:
       - lambda: return x * 0.1;
   - platform: vitoconnect
     name: "Heissgas"
     address: 0x0893
     length: 2
+    accuracy_decimals: 1
     unit_of_measurement: "C"
     device_class: temperature
     state_class: measurement
-    accuracy_decimals: 1
     filters:
       - lambda: return x * 0.1;
   - platform: vitoconnect
-    name: "Ruecklauf 2"
-    address: 0x0894
+    name: "Kesseltemperatur"
+    address: 0xA309
     length: 2
+    accuracy_decimals: 2
     unit_of_measurement: "C"
     device_class: temperature
     state_class: measurement
+    filters:
+      - lambda: return x * 0.01;
+  - platform: vitoconnect
+    name: "Anlagenvorlauf Ist"
+    address: 0xA393
+    length: 2
+    accuracy_decimals: 2
+    unit_of_measurement: "C"
+    device_class: temperature
+    state_class: measurement
+    filters:
+      - lambda: return x * 0.01;
+  - platform: vitoconnect
+    name: "Kessellsolltemperatur"
+    address: 0xA307
+    length: 2
+    accuracy_decimals: 2
+    unit_of_measurement: "C"
+    device_class: temperature
+    state_class: measurement
+    filters:
+      - lambda: return x * 0.01;
+  - platform: vitoconnect
+    name: "Vorlauf Sekundaer Mittel"
+    address: 0x16B2
+    length: 2
     accuracy_decimals: 1
+    unit_of_measurement: "C"
+    device_class: temperature
+    state_class: measurement
     filters:
       - lambda: return x * 0.1;
   - platform: vitoconnect
-    name: "Druck Kaeltemittel"
-    address: 0x088E
+    name: "Ruecklauf Sekundaer Mittel"
+    address: 0x16B3
     length: 2
-    unit_of_measurement: "bar"
     accuracy_decimals: 1
+    unit_of_measurement: "C"
+    device_class: temperature
+    state_class: measurement
     filters:
       - lambda: return x * 0.1;
+  - platform: vitoconnect
+    name: "Vorlauf Soll HK1"
+    address: 0x1800
+    length: 2
+    accuracy_decimals: 1
+    unit_of_measurement: "C"
+    device_class: temperature
+    state_class: measurement
+    filters:
+      - lambda: return x * 0.1;
+  - platform: vitoconnect
+    name: "COP Verdichter"
+    address: 0x1690
+    length: 2
+    accuracy_decimals: 1
+    state_class: measurement
+    filters:
+      - lambda: return x * 0.1;
+  - platform: vitoconnect
+    name: "Drehzahl Primaerquelle"
+    address: 0xB420
+    length: 2
+    accuracy_decimals: 1
+    unit_of_measurement: "%"
+    state_class: measurement
+    filters:
+      - lambda: return x * 1.0;
+  - platform: vitoconnect
+    name: "Timer Abtauung"
+    address: 0x1375
+    length: 2
+    accuracy_decimals: 1
+    unit_of_measurement: "s"
+    device_class: duration
+    state_class: measurement
+    filters:
+      - lambda: return x * 1.0;
+  - platform: vitoconnect
+    name: "Verdichterstunden"
+    address: 0x0580
+    length: 4
+    unit_of_measurement: "h"
+    device_class: duration
+    state_class: total_increasing
+    accuracy_decimals: 1
+    filters:
+      - lambda: return x / 3600.0;
