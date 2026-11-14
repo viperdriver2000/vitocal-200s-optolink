@@ -25,6 +25,16 @@ cards:
       green: 4
 
   - type: entities
+    title: Stoerungen
+    entities:
+      - entity: binary_sensor.vitocal_sammelstoerung
+        name: Sammelstoerung
+      - entity: binary_sensor.vitocal_stoerung_folge_wp
+        name: Stoerung Folge-WP
+    grid_options:
+      columns: 6
+
+  - type: entities
     title: Temperaturen
     entities:
       - entity: sensor.hwr_eg_vitocal_optolink_aussentemperatur

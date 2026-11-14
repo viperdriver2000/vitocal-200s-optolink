@@ -31,3 +31,17 @@ sensor.hwr_eg_vitocal_optolink_kesseltemperatur
 
 Bei anderer Area-Zuordnung weicht das Präfix ab — die tatsächlichen IDs stehen unter
 **Einstellungen → Geräte & Dienste → ESPHome → Vitocal Optolink**.
+
+## Stoerungs-Helper
+
+Die Bits sind maskiert (`bit_mask: 1` = Bit 0). `esphome_vitoconnect` kann keine
+Bitmasken, deshalb liefern die ESPHome-Sensoren den Rohwert und Home Assistant
+wertet ihn aus. Zwei Template-Helper sind angelegt:
+
+| Helper | Quelle | Ausdruck |
+|---|---|---|
+| `binary_sensor.vitocal_sammelstoerung` | `sensor.hwr_eg_vitocal_optolink_status_sammelstoerung_roh` | `{{ (states(...) \| int(0)) % 2 == 1 }}` |
+| `binary_sensor.vitocal_stoerung_folge_wp` | `sensor.hwr_eg_vitocal_optolink_status_folgewp_roh` | dito |
+
+Modulo statt Bitwise-AND, weil Jinja in HA-Templates `&` nicht akzeptiert.
+Beide sind im Normalbetrieb `off` (Rohwert 2, Bit 0 = 0).
