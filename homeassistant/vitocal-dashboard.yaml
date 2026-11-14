@@ -5,7 +5,7 @@ path: heizung
 icon: mdi:heat-pump
 cards:
   - type: gauge
-    entity: sensor.vitocal_optolink_aussentemperatur
+    entity: sensor.hwr_eg_vitocal_optolink_aussentemperatur
     name: Aussen
     min: -20
     max: 35
@@ -15,7 +15,7 @@ cards:
       red: -20
 
   - type: gauge
-    entity: sensor.vitocal_optolink_cop_verdichter
+    entity: sensor.hwr_eg_vitocal_optolink_cop_verdichter
     name: COP
     min: 0
     max: 6
@@ -27,39 +27,39 @@ cards:
   - type: entities
     title: Temperaturen
     entities:
-      - entity: sensor.vitocal_optolink_aussentemperatur
-      - entity: sensor.vitocal_optolink_warmwasser
-      - entity: sensor.vitocal_optolink_kesseltemperatur
-      - entity: sensor.vitocal_optolink_anlagenvorlauf_ist
-      - entity: sensor.vitocal_optolink_kessellsolltemperatur
-      - entity: sensor.vitocal_optolink_vorlauf_sekundaer_mittel
-      - entity: sensor.vitocal_optolink_ruecklauf_sekundaer_mittel
-      - entity: sensor.vitocal_optolink_vorlauf_soll_hk1
-      - entity: sensor.vitocal_optolink_heissgas
+      - entity: sensor.hwr_eg_vitocal_optolink_aussentemperatur
+      - entity: sensor.hwr_eg_vitocal_optolink_warmwasser
+      - entity: sensor.hwr_eg_vitocal_optolink_kesseltemperatur
+      - entity: sensor.hwr_eg_vitocal_optolink_anlagenvorlauf_ist
+      - entity: sensor.hwr_eg_vitocal_optolink_kessellsolltemperatur
+      - entity: sensor.hwr_eg_vitocal_optolink_vorlauf_sekundaer_mittel
+      - entity: sensor.hwr_eg_vitocal_optolink_ruecklauf_sekundaer_mittel
+      - entity: sensor.hwr_eg_vitocal_optolink_vorlauf_soll_hk1
+      - entity: sensor.hwr_eg_vitocal_optolink_heissgas
 
   - type: entities
     title: Betrieb
     entities:
-      - entity: sensor.vitocal_optolink_cop_verdichter
-      - entity: sensor.vitocal_optolink_drehzahl_primaerquelle
-      - entity: sensor.vitocal_optolink_timer_abtauung
-      - entity: sensor.vitocal_optolink_verdichterstunden
+      - entity: sensor.hwr_eg_vitocal_optolink_cop_verdichter
+      - entity: sensor.hwr_eg_vitocal_optolink_drehzahl_primaerquelle
+      - entity: sensor.hwr_eg_vitocal_optolink_timer_abtauung
+      - entity: sensor.hwr_eg_vitocal_optolink_verdichterstunden
 
   - type: history-graph
     title: Temperaturen 24 h
     hours_to_show: 24
     entities:
-      - entity: sensor.vitocal_optolink_aussentemperatur
-      - entity: sensor.vitocal_optolink_anlagenvorlauf_ist
-      - entity: sensor.vitocal_optolink_ruecklauf_sekundaer_mittel
-      - entity: sensor.vitocal_optolink_warmwasser
+      - entity: sensor.hwr_eg_vitocal_optolink_aussentemperatur
+      - entity: sensor.hwr_eg_vitocal_optolink_anlagenvorlauf_ist
+      - entity: sensor.hwr_eg_vitocal_optolink_ruecklauf_sekundaer_mittel
+      - entity: sensor.hwr_eg_vitocal_optolink_warmwasser
 
   - type: history-graph
     title: COP und Heissgas 24 h
     hours_to_show: 24
     entities:
-      - entity: sensor.vitocal_optolink_cop_verdichter
-      - entity: sensor.vitocal_optolink_heissgas
+      - entity: sensor.hwr_eg_vitocal_optolink_cop_verdichter
+      - entity: sensor.hwr_eg_vitocal_optolink_heissgas
 
   - type: statistics-graph
     title: Verdichterstunden pro Tag
@@ -67,4 +67,4 @@ cards:
     period: day
     days_to_show: 7
     entities:
-      - entity: sensor.vitocal_optolink_verdichterstunden
+      - entity: sensor.hwr_eg_vitocal_optolink_verdichterstunden

@@ -19,3 +19,15 @@ tatsächlichen IDs prüfen.
   ist noch nicht verifiziert. Erst einbauen, wenn klar ist, welcher Wert „Störung aktiv"
   bedeutet.
 - **Druck-Warnung** — der Heizkreis-Druck ist mechanisch (Manometer), kein Datenpunkt.
+
+## Entity-ID-Präfix
+
+Home Assistant stellt dem Gerätenamen das Area-Kürzel voran. Im Referenzaufbau heißt
+das Präfix `hwr_eg_` (Heizungsraum, Erdgeschoss):
+
+```
+sensor.hwr_eg_vitocal_optolink_kesseltemperatur
+```
+
+Bei anderer Area-Zuordnung weicht das Präfix ab — die tatsächlichen IDs stehen unter
+**Einstellungen → Geräte & Dienste → ESPHome → Vitocal Optolink**.
