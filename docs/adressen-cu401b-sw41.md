@@ -68,3 +68,68 @@ Länge 1 Byte, Wert `02` = aktiv, `00` = inaktiv. Auszug der belegten Adressen:
 | 0x0100–0x01FF | fast ausschließlich Fehler 3; Katalogadressen 0x01C1/0x01CB/0x01CD existieren hier **nicht** |
 | 0x0200–0x07FF | 299 Antworten: Korrekturwerte, Gradienten, Status-Bits, Ausstattungsmerkmale — keine Messwerte |
 | 0x7000–0x70FF | 1 Antwort (0x7000), sonst Fehler 3 |
+
+---
+
+## Voller Scan 0x0900–0xFFFF
+
+Durchgeführt November 2026, 63.232 Adressen, 600 ms Abstand, Laufzeit ~10,5 h.
+Gefiltert auf Erfolgs-Frames; zwei Durchläufe zum Abgleich.
+
+**Ergebnis:** 2143 belegte Adressen, davon **28 mit wechselnden Werten** zwischen den
+Durchläufen. Wechselnde Werte sind der verlässlichste Beleg für echte Messwerte —
+Konfigurationsregister bleiben konstant.
+
+### Belegte Blöcke
+
+| Block | Adressen |
+|---|---|
+| 0x0900–0x09FF | 192 |
+| 0x1300–0x13FF | 89 |
+| 0x1600–0x16FF | 33 |
+| 0x1800–0x18FF | 33 |
+| 0x1A00–0x1AFF | 133 |
+| 0x2000 / 0x3000 / 0x4000 | je 27 |
+| 0x5000–0x5400 | 368 |
+| 0x5A00–0x5B00 | 118 |
+| 0x7000–0x7E00 | ~500 |
+| 0xA000–0xA4FF | 43 |
+| 0xB000–0xB4FF | 131 |
+| 0xFD00–0xFDFF | 255 (Systembereich) |
+
+### Messwerte mit Namen (aus dem Katalog bestätigt)
+
+| Adresse | Name | Skalierung | Beispiel |
+|---|---|---|---|
+| 0xA309 | Kesseltemperatur | ÷100 | 36,50 °C |
+| 0xA393 | Anlagenvorlauf-Kessel-Isttemperatur | ÷100 | 33,60 °C |
+| 0xA307 | effektive Kessellsolltemperatur | ÷100 | 32,50 °C |
+| 0xA391 | Aktiver Anlagen-/Solltemperaturwert | ÷100 | 32,50 °C |
+| 0x16B2 | Mittlere sek. Vorlauftemperatur | ÷10 | 31,1 °C |
+| 0x16B3 | Mittlere sek. Rücklauftemperatur RL1 | ÷10 | 30,8 °C |
+| 0x16B0 | Mittlere primäre Eingangstemperatur | ÷10 | 3,3 °C |
+| 0x16B1 | Mittlere primäre Ausgangstemperatur | ÷10 | 2,8 °C |
+| 0x16C0 | Max. sek. Vorlauftemperatur Heizen | ÷10 | 37,7 °C |
+| 0x16C2 | Max. sek. Rücklauftemperatur Heizen RL1 | ÷10 | 34,2 °C |
+| 0x1800 | Vorlauftemp. Soll HK1 | ÷10 | 32,2 °C |
+| 0x1804 | Anlagenvorlauf Solltemperatur | ÷10 | 32,2 °C |
+| 0x1690 | COP Verdichter 1 | ÷10 | 5,6 |
+| 0x1684 | JAZ incl. PV | ÷10 | (Wert 0 = nv) |
+| 0xB420 | Drehzahl Primärquelle | % | 0–25 |
+| 0x1624 | Belastungsklasse 3 Verdichter | h | 3038–3039 |
+| 0x130A | Zustandsautomat WP1 | — | 768 / 0 |
+| 0x1372 | Timer OPT Laufzeit WP1 | s | 5 |
+| 0x1374 | Timer Sperrzeit WP1 | s | 186 |
+| 0x1375 | Timer Abtauung WP1 | s | 1193 |
+
+### Dynamisch, aber nicht im Katalog
+
+| Adresse | Werte | Hypothese |
+|---|---|---|
+| 0xA14F | 240 → 140 | unbekannt |
+| 0xA152 | 8224 → 8354 | unbekannt |
+| 0xA3C3 | 4570 → 4520 | 45,7 → 45,2 °C (Warmwasser?) |
+| 0xBF80 | 213 → 240 | Zähler |
+| 0xBF81 | 544 → 575 | Zähler |
+| 0xBF83 | 637 → 718 | Zähler |
+| 0xBF84 | 2139 → 2275 | Zähler |
