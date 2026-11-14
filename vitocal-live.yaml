@@ -170,3 +170,24 @@ sensor:
     accuracy_decimals: 1
     filters:
       - lambda: return x / 3600.0;
+
+  # Rohwerte der Status-Bits (maskiert, Auswertung in Home Assistant)
+  # 0x0491: bit_mask 1 = Sammelstoerung, bit_mask 64 = RelaisStatus
+  # 0x03D8: bit_mask 1 = Stoerung Folge-WP
+  - platform: vitoconnect
+    name: "Status Sammelstoerung Roh"
+    address: 0x0491
+    length: 2
+    accuracy_decimals: 0
+    entity_category: diagnostic
+    filters:
+      - lambda: return ((int) x & 0xFF);
+
+  - platform: vitoconnect
+    name: "Status FolgeWP Roh"
+    address: 0x03D8
+    length: 2
+    accuracy_decimals: 0
+    entity_category: diagnostic
+    filters:
+      - lambda: return ((int) x & 0xFF);
