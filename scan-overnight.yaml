@@ -1,0 +1,65 @@
+# Vollstaendiger Adress-Scan 0x0900-0xFFFF, gefiltert: nur erfolgreiche Antworten.
+# Laufzeit ca. 10,5 h bei 600 ms pro Adresse. Log bleibt klein (~1000 Zeilen).
+substitutions:
+  name: optolink-bench
+
+esphome:
+  name: ${name}
+  friendly_name: Optolink Scan
+
+esp8266:
+  board: d1_mini
+
+logger:
+  baud_rate: 0
+  level: DEBUG
+
+api:
+
+ota:
+  - platform: esphome
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  ap:
+    ssid: "optolink-fallback"
+
+globals:
+  - id: scan_addr
+    type: uint16_t
+    restore_value: false
+    initial_value: '0x0900'
+
+uart:
+  - id: opto
+    tx_pin: GPIO1
+    rx_pin: GPIO3
+    baud_rate: 4800
+    data_bits: 8
+    parity: EVEN
+    stop_bits: 2
+    debug:
+      direction: RX
+      dummy_receiver: true
+      after:
+        timeout: 100ms
+      sequence:
+        - lambda: |-
+            if (bytes.size() >= 4 && bytes[3] == 0x01) {
+              UARTDebug::log_hex(direction, bytes, ':');
+            }
+
+interval:
+  - interval: 600ms
+    then:
+      - uart.write: !lambda |-
+          uint16_t a = id(scan_addr);
+          std::vector<uint8_t> f = {0x41, 0x05, 0x00, 0x01,
+                                    (uint8_t)(a >> 8), (uint8_t)(a & 0xFF), 0x02};
+          uint8_t c = 0xBF;
+          for (auto b : f) c += b;
+          f.push_back(c);
+          ESP_LOGD("scan", "probe 0x%04X", a);
+          id(scan_addr) = (a >= 0xFFFF) ? 0x0900 : (a + 1);
+          return f;
