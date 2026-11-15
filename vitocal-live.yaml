@@ -10,6 +10,12 @@ esphome:
 esp8266:
   board: d1_mini
 
+# Blaue Onboard-LED (Oberseite, active-low) als Betriebsanzeige
+status_led:
+  pin:
+    number: GPIO2
+    inverted: true
+
 logger:
   baud_rate: 0
   level: DEBUG
@@ -36,18 +42,6 @@ uart:
     data_bits: 8
     parity: EVEN
     stop_bits: 2
-
-# LED-Test: schaltet GPIO2 direkt, um Polaritaet zu pruefen
-output:
-  - platform: gpio
-    pin: GPIO2
-    id: led_pin
-
-switch:
-  - platform: output
-    name: "LED Test"
-    output: led_pin
-    id: led_test
 
 vitoconnect:
   uart_id: opto
