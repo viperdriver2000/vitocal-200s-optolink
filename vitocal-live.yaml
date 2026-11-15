@@ -10,6 +10,12 @@ esphome:
 esp8266:
   board: d1_mini
 
+# Blaue Onboard-LED (active-low) als Betriebsanzeige
+status_led:
+  pin:
+    number: GPIO2
+    inverted: true
+
 logger:
   baud_rate: 0
   level: DEBUG
